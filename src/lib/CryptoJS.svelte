@@ -42,25 +42,25 @@
     </div>
   </nav>
   <div class="container-fluid col-xxl-6 py-4">
-    <div class="row gy-3">
+    <div class="row gy-2">
       <div>
-        <label for="exampleFormControlInput1" class="form-label text-primary fw-bold">Plain String</label>
+        <label class="form-label text-primary fw-bold">Plain String</label>
         <textarea bind:value={decryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="enter string you want to encrypt"></textarea>
       </div>
       <div>
-        <label for="exampleFormControlInput1" class="form-label text-primary fw-bold">Key</label>
+        <label class="form-label text-primary fw-bold">Key</label>
         <input bind:value={key} type="text" class="form-control" placeholder="key" aria-label="key" required="required">
       </div>
       <div>
-        <label for="exampleFormControlInput1" class="form-label text-primary fw-bold">Encrypted String</label>
+        <label class="form-label text-primary fw-bold">Encrypted String</label>
         <textarea class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" readonly="readonly">{encryptedString}</textarea>
       </div>
       <div>
-        <label for="exampleFormControlInput1" class="form-label text-primary fw-bold">encodeURIComponent</label>
+        <label class="form-label text-primary fw-bold">encodeURIComponent</label>
         <textarea class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" readonly="readonly">{encodeURIComponentOfencryptedString}</textarea>
       </div>
       <div>
-        <label for="exampleFormControlInput1" class="form-label text-primary fw-bold">The Cipher Algorithms</label>
+        <label class="form-label text-primary fw-bold">The Cipher Algorithms</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="AES" id="AES" bind:group={cipherAlgorithm} value="AES" checked>
           <label class="form-check-label" for="AES">
@@ -79,6 +79,9 @@
             Triple DES
           </label>
         </div>
+      </div>
+      <div>
+        <hr>
       </div>
       <div class="mx-auto" style="width:6rem">
         <button on:click={encrypt} class="btn btn-primary">
