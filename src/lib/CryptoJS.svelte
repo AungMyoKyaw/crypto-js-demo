@@ -1,5 +1,6 @@
 <script>
   import CryptoJS from "crypto-js"
+  const siteHeader = "CryptoJS Demo"
   let cipherAlgorithm = "AES"
   let decryptedString = "" 
   let encryptedString = "" 
@@ -35,8 +36,8 @@
 <div>
   <nav class="navbar bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <strong style="color:white">CryptoJS Demo</strong>
+      <a class="navbar-brand" href=".">
+        <strong style="color:white">{siteHeader}</strong>
       </a>
     </div>
   </nav>
