@@ -3,7 +3,7 @@
 </script>
 
 <main>
-  <div class="card">
+  <div>
     <CryptoJS />
   </div>
 </main>
