@@ -41,7 +41,7 @@
       </a>
     </div>
   </nav>
-  <div class="container w-50 py-4">
+  <div class="container-fluid col-xxl-6 py-4">
     <div class="row gy-3">
       <div>
         <label for="exampleFormControlInput1" class="form-label text-primary fw-bold">Plain String</label>
