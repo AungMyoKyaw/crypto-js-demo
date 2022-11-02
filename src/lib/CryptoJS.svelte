@@ -86,7 +86,7 @@
   <div class="container-fluid col-xxl-6 py-4">
     <div class="row gy-2">
       <div>
-        <label class="form-label text-primary fw-bold">Cipher Option</label>
+        <span class="form-label text-primary fw-bold">Cipher Option</span>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="cipherOption_encrypt" id="cipherOption_encrypt" bind:group={cipherOption} value="encrypt" on:click={() => handleCipherOptionCheck("encrypt")} checked>
           <label class="form-check-label" for="cipherOption_encrypt">
@@ -101,33 +101,31 @@
         </div>
       </div>
       <div>
+        <span class="form-label text-primary fw-bold">Plain String</span>
         {#if cipherOption === "decrypt" }
-          <label class="form-label text-primary fw-bold">Plain String</label>
           <textarea bind:value={decryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="enter the string you want to encrypt" readonly></textarea>
         {:else}
-          <label class="form-label text-primary fw-bold">Plain String</label>
           <textarea bind:value={decryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="enter the string you want to encrypt" on:keyup={getActionButtonDisableStatus}></textarea>
         {/if}
       </div>
       <div>
-        <label class="form-label text-primary fw-bold">Key</label>
+        <span class="form-label text-primary fw-bold">Secret Key</span>
         <input bind:value={key} type="text" class="form-control" placeholder="key" aria-label="key" required="required">
       </div>
       <div>
+        <span class="form-label text-primary fw-bold">Encrypted String</span>
         {#if cipherOption === "encrypt" }
-          <label class="form-label text-primary fw-bold">Encrypted String</label>
           <textarea bind:value={encryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" readonly></textarea>
         {:else}
-          <label class="form-label text-primary fw-bold">Encrypted String</label>
           <textarea bind:value={encryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" on:keyup={getActionButtonDisableStatus}></textarea>
         {/if}
       </div>
       <div>
-          <label class="form-label text-primary fw-bold">encodeURIComponent</label>
+          <span class="form-label text-primary fw-bold">encodeURIComponent</span>
           <textarea class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" readonly="readonly">{encodeURIComponentOfencryptedString}</textarea>
       </div>
       <div>
-        <label class="form-label text-primary fw-bold">The Cipher Algorithms</label>
+        <span class="form-label text-primary fw-bold">The Cipher Algorithms</span>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="AES" id="AES" bind:group={cipherAlgorithm} value="AES" checked>
           <label class="form-check-label" for="AES">
