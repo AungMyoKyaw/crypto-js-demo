@@ -2,27 +2,35 @@
   import CryptoJS from "crypto-js"
   const siteHeader = "CryptoJS Demo"
   let cipherAlgorithm = "AES"
+  let cipherOption = "encrypt"
+  let disableActionButton = false
   let decryptedString = "" 
   let encryptedString = "" 
   let encodeURIComponentOfencryptedString = "" 
   let key = ""
   let count = 0
-  const encrypt = () => {
-    if (decryptedString == ""){
-      return false
-    }
+  const cipherFunction = (cipherOption) => {
     switch (cipherAlgorithm) {
       case 'AES':
-        encryptedString = CryptoJS.AES.encrypt(decryptedString, key).toString();
-        console.log({cipherAlgorithm,decryptedString, key})
+        if(cipherOption == "encrypt"){
+          encryptedString = CryptoJS.AES.encrypt(decryptedString, key).toString();
+        } else {
+          decryptedString = CryptoJS.AES.decrypt(encryptedString, key).toString(CryptoJS.enc.Utf8);
+        }
         break;
       case 'DES':
-        encryptedString = CryptoJS.DES.encrypt(decryptedString, key).toString();
-        console.log({cipherAlgorithm,decryptedString, key})
+        if(cipherOption == "encrypt"){
+          encryptedString = CryptoJS.DES.encrypt(decryptedString, key).toString();
+        } else {
+          decryptedString = CryptoJS.DES.decrypt(encryptedString, key).toString(CryptoJS.enc.Utf8);
+        }
         break;
       case 'Triple_DES':
-        encryptedString = CryptoJS.TripleDES.encrypt(decryptedString, key).toString();
-        console.log({cipherAlgorithm,decryptedString, key})
+        if(cipherOption == "encrypt"){
+          encryptedString = CryptoJS.TripleDES.encrypt(decryptedString, key).toString();
+        } else {
+          decryptedString = CryptoJS.TripleDES.decrypt(encryptedString, key).toString(CryptoJS.enc.Utf8);
+        }
         break;
       default:
         encryptedString = CryptoJS.AES.encrypt(decryptedString, key).toString();
@@ -31,6 +39,40 @@
       encodeURIComponentOfencryptedString = encodeURIComponent(encryptedString)
     }
   }
+
+  const getActionButtonText = (cipherOption) => {
+    if (cipherOption == "encrypt"){
+      return "Encrypt"
+    }
+
+    if (cipherOption == "decrypt"){
+      return "Decrypt"
+    }
+    return "Action"
+  }
+
+  const getActionButtonDisableStatus = () => {
+    if (decryptedString == "" && cipherOption == "encrypt"){
+      disableActionButton = true
+    } else if (encryptedString == "" && cipherOption == "decrypt"){
+      disableActionButton = true
+    } else {
+      disableActionButton = false
+    }
+  }
+
+  getActionButtonDisableStatus()
+
+  const handleCipherOptionCheck = (option) => {
+    if (option == "encrypt"){
+      encryptedString = ""
+    }
+
+    if (option == "decrypt"){
+      decryptedString = ""
+    }
+  }
+
 </script>
 
 <div>
@@ -44,20 +86,45 @@
   <div class="container-fluid col-xxl-6 py-4">
     <div class="row gy-2">
       <div>
-        <label class="form-label text-primary fw-bold">Plain String</label>
-        <textarea bind:value={decryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="enter string you want to encrypt"></textarea>
+        <label class="form-label text-primary fw-bold">Cipher Option</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="cipherOption_encrypt" id="cipherOption_encrypt" bind:group={cipherOption} value="encrypt" on:click={() => handleCipherOptionCheck("encrypt")} checked>
+          <label class="form-check-label" for="cipherOption_encrypt">
+            Encrypt
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="cipherOption_decrypt" id="cipherOption_decrypt" bind:group={cipherOption} value="decrypt" on:click={()=>handleCipherOptionCheck("decrypt")}>
+          <label class="form-check-label" for="cipherOption_decrypt">
+            Decrypt
+          </label>
+        </div>
+      </div>
+      <div>
+        {#if cipherOption === "decrypt" }
+          <label class="form-label text-primary fw-bold">Plain String</label>
+          <textarea bind:value={decryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="enter the string you want to encrypt" readonly></textarea>
+        {:else}
+          <label class="form-label text-primary fw-bold">Plain String</label>
+          <textarea bind:value={decryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="enter the string you want to encrypt" on:keyup={getActionButtonDisableStatus}></textarea>
+        {/if}
       </div>
       <div>
         <label class="form-label text-primary fw-bold">Key</label>
         <input bind:value={key} type="text" class="form-control" placeholder="key" aria-label="key" required="required">
       </div>
       <div>
-        <label class="form-label text-primary fw-bold">Encrypted String</label>
-        <textarea class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" readonly="readonly">{encryptedString}</textarea>
+        {#if cipherOption === "encrypt" }
+          <label class="form-label text-primary fw-bold">Encrypted String</label>
+          <textarea bind:value={encryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" readonly></textarea>
+        {:else}
+          <label class="form-label text-primary fw-bold">Encrypted String</label>
+          <textarea bind:value={encryptedString} class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" on:keyup={getActionButtonDisableStatus}></textarea>
+        {/if}
       </div>
       <div>
-        <label class="form-label text-primary fw-bold">encodeURIComponent</label>
-        <textarea class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" readonly="readonly">{encodeURIComponentOfencryptedString}</textarea>
+          <label class="form-label text-primary fw-bold">encodeURIComponent</label>
+          <textarea class="form-control" aria-label="With textarea" style="resize:none" placeholder="encryptedString" readonly="readonly">{encodeURIComponentOfencryptedString}</textarea>
       </div>
       <div>
         <label class="form-label text-primary fw-bold">The Cipher Algorithms</label>
@@ -84,9 +151,9 @@
         <hr>
       </div>
       <div class="mx-auto" style="width:6rem">
-        <button on:click={encrypt} class="btn btn-primary">
-          Encrypt
-        </button>
+       <button on:click={cipherFunction(cipherOption)} class="btn btn-primary">
+         {getActionButtonText(cipherOption)}
+       </button>
       </div>
     </div>
   </div>
