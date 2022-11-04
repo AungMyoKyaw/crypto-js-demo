@@ -1,7 +1,7 @@
 <script>
-  import Ciphers from './Ciphers.svelte'
+  import Ciphers from './Ciphers.svelte';
 </script>
 
 <div>
-  <Ciphers/>
+  <Ciphers />
 </div>
