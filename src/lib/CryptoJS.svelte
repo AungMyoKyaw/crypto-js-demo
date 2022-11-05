@@ -1,5 +1,6 @@
 <script>
   import Ciphers from './Ciphers.svelte';
+  import Hashing from './Hashing.svelte';
   let hashingOrCiphers = 'ciphers';
 </script>
 
@@ -35,8 +36,6 @@
   {#if hashingOrCiphers === 'ciphers'}
     <Ciphers />
   {:else}
-    <div class="container-fluid col-xxl-6 pt-4 mb-0">
-      <p class="text-info">hashing</p>
-    </div>
+    <Hashing />
   {/if}
 </div>
