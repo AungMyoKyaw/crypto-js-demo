@@ -21,6 +21,9 @@
   let key = '';
   let count = 0;
   const cipherFunction = (cipherOption) => {
+    if (encryptedString == '' && encodeURIComponentOfencryptedString != '') {
+      encryptedString = decodeURIComponent(encodeURIComponentOfencryptedString);
+    }
     switch (cipherAlgorithm) {
       case 'AES':
         if (cipherOption == 'encrypt') {
@@ -93,6 +96,7 @@
   const handleCipherOptionCheck = (option) => {
     if (option == 'encrypt') {
       encryptedString = '';
+      encodeURIComponentOfencryptedString = '';
     }
 
     if (option == 'decrypt') {
@@ -101,12 +105,18 @@
   };
 
   const copyTextToClipboardForEncryptedString = () => {
+    if (!encryptedString) {
+      return false;
+    }
     copyBtnForEncryptedString.isCopied = true;
     copyBtnForEncryptedString.copiedString = encryptedString;
     navigator.clipboard.writeText(encryptedString);
   };
 
   const copyTextToClipboardForencodeURIComponentOfencryptedString = () => {
+    if (!encodeURIComponentOfencryptedString) {
+      return false;
+    }
     copyBtnForEncodeUrlComponentString.isCopied = true;
     copyBtnForEncodeUrlComponentString.copiedString =
       encodeURIComponentOfencryptedString;
@@ -114,6 +124,9 @@
   };
 
   const copyTextToClipboardForDecryptedString = () => {
+    if (!decryptedString) {
+      return false;
+    }
     copyBtnForDecryptedString.isCopied = true;
     copyBtnForDecryptedString.copiedString = decryptedString;
     navigator.clipboard.writeText(decryptedString);
@@ -240,18 +253,20 @@
         {/if}
       </div>
       <div>
-        <span class="form-label text-primary fw-bold">encodeURIComponent</span>
+        <span class="form-label text-primary fw-bold"
+          >encodeURIComponent of encryptedString</span
+        >
         {#if cipherOption === 'encrypt'}
           <textarea
+            bind:value={encodeURIComponentOfencryptedString}
             class="form-control"
             aria-label="With textarea"
             style="resize:none"
-            placeholder="encryptedString"
+            placeholder="encodeURIComponent of encryptedString"
             readonly="readonly"
             on:click={copyTextToClipboardForencodeURIComponentOfencryptedString}
             on:blur={onBlurCopyTextBox}
-            >{encodeURIComponentOfencryptedString}</textarea
-          >
+          />
           {#if copyBtnForEncodeUrlComponentString.isCopied}
             <span class="text-success copy-btn">Copied text to clipboard</span>
           {:else}
@@ -259,12 +274,12 @@
           {/if}
         {:else}
           <textarea
+            bind:value={encodeURIComponentOfencryptedString}
             class="form-control"
             aria-label="With textarea"
             style="resize:none"
-            placeholder="encryptedString"
-            readonly="readonly">{encodeURIComponentOfencryptedString}</textarea
-          >
+            placeholder="encodeURIComponent of encryptedString"
+          />
         {/if}
       </div>
       <div>
