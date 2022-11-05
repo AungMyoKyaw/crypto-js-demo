@@ -3,7 +3,9 @@
 </script>
 
 <nav class="navbar bg-dark fixed-top">
-  <a class="navbar-brand" href=".">
-    <strong style="color:white">{siteHeader}</strong>
-  </a>
+  <div class="container-fluid">
+    <a class="navbar-brand" href=".">
+      <strong style="color:white">{siteHeader}</strong>
+    </a>
+  </div>
 </nav>
