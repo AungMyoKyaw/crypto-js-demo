@@ -2,7 +2,6 @@
   import CryptoJS from 'crypto-js';
   let cipherAlgorithm = 'AES';
   let cipherOption = 'encrypt';
-  let disableActionButton = false;
   let decryptedString = '';
   let encryptedString = '';
   let encodeURIComponentOfencryptedString = '';
@@ -81,17 +80,13 @@
     return 'Action';
   };
 
-  const getActionButtonDisableStatus = () => {
-    if (decryptedString == '' && cipherOption == 'encrypt') {
-      disableActionButton = true;
-    } else if (encryptedString == '' && cipherOption == 'decrypt') {
-      disableActionButton = true;
-    } else {
-      disableActionButton = false;
-    }
+  const clearConflitedTextboxForEncodeUrlComponent = () => {
+    encryptedString = '';
   };
 
-  getActionButtonDisableStatus();
+  const clearConflitedTextboxForEncryptedString = () => {
+    encodeURIComponentOfencryptedString = '';
+  };
 
   const handleCipherOptionCheck = (option) => {
     if (option == 'encrypt') {
@@ -208,7 +203,6 @@
             aria-label="With textarea"
             style="resize:none"
             placeholder="enter the string you want to encrypt"
-            on:keyup={getActionButtonDisableStatus}
           />
         {/if}
       </div>
@@ -248,7 +242,7 @@
             aria-label="With textarea"
             style="resize:none"
             placeholder="encryptedString"
-            on:keyup={getActionButtonDisableStatus}
+            on:keydown={clearConflitedTextboxForEncryptedString}
           />
         {/if}
       </div>
@@ -279,6 +273,7 @@
             aria-label="With textarea"
             style="resize:none"
             placeholder="encodeURIComponent of encryptedString"
+            on:keydown={clearConflitedTextboxForEncodeUrlComponent}
           />
         {/if}
       </div>
