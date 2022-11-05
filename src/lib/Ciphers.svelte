@@ -1,6 +1,5 @@
 <script>
   import CryptoJS from 'crypto-js';
-  const siteHeader = 'CryptoJS Demo';
   let cipherAlgorithm = 'AES';
   let cipherOption = 'encrypt';
   let disableActionButton = false;
@@ -91,14 +90,7 @@
 </script>
 
 <div>
-  <nav class="navbar bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href=".">
-        <strong style="color:white">{siteHeader}</strong>
-      </a>
-    </div>
-  </nav>
-  <div class="container-fluid col-xxl-6 py-4">
+  <div class="container-fluid col-xxl-6 py-4 pt-0">
     <div class="row gy-2">
       <div>
         <span class="form-label text-primary fw-bold">Cipher Option</span>
