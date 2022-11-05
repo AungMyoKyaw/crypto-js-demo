@@ -8,6 +8,12 @@
     >
   </p>
   <p class="text-secondary text-uppercase fw-normal mb-4">
-    Made with 🌸 in Burma
+    Made with
+    <a
+      href="https://github.com/AungMyoKyaw/crypto-js-demo"
+      target="_blank"
+      class="text-decoration-none text-reset">🌸</a
+    >
+    in Burma
   </p>
 </div>
