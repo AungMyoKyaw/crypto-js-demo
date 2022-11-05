@@ -27,7 +27,7 @@
         bind:group={hashingOrCiphers}
         value="hashing"
       />
-      <label class="form-check-label" for="hashing_cryptojs"> Hashing </label>
+      <label class="form-check-label" for="hashing_cryptojs">Hashing</label>
     </div>
     <hr />
   </div>

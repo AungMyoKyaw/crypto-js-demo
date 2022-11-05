@@ -6,6 +6,18 @@
   let decryptedString = '';
   let encryptedString = '';
   let encodeURIComponentOfencryptedString = '';
+  let copyBtnForDecryptedString = {
+    isCopied: false,
+    copiedString: ''
+  };
+  let copyBtnForEncryptedString = {
+    isCopied: false,
+    copiedString: ''
+  };
+  let copyBtnForEncodeUrlComponentString = {
+    isCopied: false,
+    copiedString: ''
+  };
   let key = '';
   let count = 0;
   const cipherFunction = (cipherOption) => {
@@ -87,6 +99,40 @@
       decryptedString = '';
     }
   };
+
+  const copyTextToClipboardForEncryptedString = () => {
+    copyBtnForEncryptedString.isCopied = true;
+    copyBtnForEncryptedString.copiedString = encryptedString;
+    navigator.clipboard.writeText(encryptedString);
+  };
+
+  const copyTextToClipboardForencodeURIComponentOfencryptedString = () => {
+    copyBtnForEncodeUrlComponentString.isCopied = true;
+    copyBtnForEncodeUrlComponentString.copiedString =
+      encodeURIComponentOfencryptedString;
+    navigator.clipboard.writeText(encodeURIComponentOfencryptedString);
+  };
+
+  const copyTextToClipboardForDecryptedString = () => {
+    copyBtnForDecryptedString.isCopied = true;
+    copyBtnForDecryptedString.copiedString = decryptedString;
+    navigator.clipboard.writeText(decryptedString);
+  };
+
+  const onBlurCopyTextBox = () => {
+    copyBtnForEncryptedString = {
+      isCopied: false,
+      copiedString: ''
+    };
+    copyBtnForEncodeUrlComponentString = {
+      isCopied: false,
+      copiedString: ''
+    };
+    copyBtnForDecryptedString = {
+      isCopied: false,
+      copiedString: ''
+    };
+  };
 </script>
 
 <div>
@@ -134,7 +180,14 @@
             style="resize:none"
             placeholder="enter the string you want to encrypt"
             readonly
+            on:click={copyTextToClipboardForDecryptedString}
+            on:blur={onBlurCopyTextBox}
           />
+          {#if copyBtnForDecryptedString.isCopied}
+            <span class="text-success copy-btn">Copied text to clipboard</span>
+          {:else}
+            <span class="copy-btn">Click to copy</span>
+          {/if}
         {:else}
           <textarea
             bind:value={decryptedString}
@@ -167,7 +220,14 @@
             style="resize:none"
             placeholder="encryptedString"
             readonly
+            on:click={copyTextToClipboardForEncryptedString}
+            on:blur={onBlurCopyTextBox}
           />
+          {#if copyBtnForEncryptedString.isCopied}
+            <span class="text-success copy-btn">Copied text to clipboard</span>
+          {:else}
+            <span class="copy-btn">Click to copy</span>
+          {/if}
         {:else}
           <textarea
             bind:value={encryptedString}
@@ -181,13 +241,31 @@
       </div>
       <div>
         <span class="form-label text-primary fw-bold">encodeURIComponent</span>
-        <textarea
-          class="form-control"
-          aria-label="With textarea"
-          style="resize:none"
-          placeholder="encryptedString"
-          readonly="readonly">{encodeURIComponentOfencryptedString}</textarea
-        >
+        {#if cipherOption === 'encrypt'}
+          <textarea
+            class="form-control"
+            aria-label="With textarea"
+            style="resize:none"
+            placeholder="encryptedString"
+            readonly="readonly"
+            on:click={copyTextToClipboardForencodeURIComponentOfencryptedString}
+            on:blur={onBlurCopyTextBox}
+            >{encodeURIComponentOfencryptedString}</textarea
+          >
+          {#if copyBtnForEncodeUrlComponentString.isCopied}
+            <span class="text-success copy-btn">Copied text to clipboard</span>
+          {:else}
+            <span class="copy-btn">Click to copy</span>
+          {/if}
+        {:else}
+          <textarea
+            class="form-control"
+            aria-label="With textarea"
+            style="resize:none"
+            placeholder="encryptedString"
+            readonly="readonly">{encodeURIComponentOfencryptedString}</textarea
+          >
+        {/if}
       </div>
       <div>
         <span class="form-label text-primary fw-bold"
@@ -239,3 +317,13 @@
     </div>
   </div>
 </div>
+
+<style>
+  .copy-btn {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: -0.2px;
+    color: #9da2ad;
+  }
+</style>
