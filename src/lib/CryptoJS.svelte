@@ -39,3 +39,12 @@
     <Hashing />
   {/if}
 </div>
+
+<style>
+  .form-check-label {
+    cursor: pointer;
+  }
+  .form-check-input {
+    cursor: pointer;
+  }
+</style>

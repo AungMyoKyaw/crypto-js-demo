@@ -333,4 +333,11 @@
     letter-spacing: -0.2px;
     color: #9da2ad;
   }
+
+  .form-check-label {
+    cursor: pointer;
+  }
+  .form-check-input {
+    cursor: pointer;
+  }
 </style>
